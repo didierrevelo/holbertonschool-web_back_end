@@ -22,6 +22,7 @@ wait_random = __import__('0-basic_async_syntax').wait_random
 
 
 async def wait_n(n, max_delay) -> List[float]:
+    """Let's execute multiple coroutines at the same time with async"""
     array0, array1 = [], []
 
     for _ in range(n):
