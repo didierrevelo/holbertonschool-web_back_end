@@ -20,8 +20,9 @@ from base_caching import BaseCaching
 
 
 class BasicCache(BaseCaching):
-    """basic dictionary put item in cache"""
+    """basic dictionary"""
     def put(self, key, item):
+        """put item in cache"""
         if key is not None and item is not None:
             self.cache_data[key] = item
 
