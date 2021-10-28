@@ -1,8 +1,4 @@
 #!/usr/bin/env python3
-import csv
-import math
-from typing import List
-
 """
 Write a function named index_range
 that takes two integer arguments
@@ -17,7 +13,9 @@ for those particular pagination parameters.
 Page numbers are 1-indexed, i.e. the
 first page is page 1.
 """
-from typing import Tuple
+import csv
+import math
+from typing import List, Tuple
 
 
 def index_range(page, page_size) -> Tuple[int, int]:
