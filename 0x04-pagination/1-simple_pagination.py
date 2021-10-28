@@ -25,7 +25,6 @@ def index_range(page, page_size) -> Tuple[int, int]:
     return ((page - 1) * page_size, page * page_size)
 
 
-
 class Server:
     """Server class to paginate a database of popular baby names.
     """
@@ -61,12 +60,12 @@ class Server:
             an empty list should be returned."""
         assert isinstance(page, int) and page > 0
         assert isinstance(page_size, int) and page > 0
-        
+
         self.dataset()
-        
+
         if self.__dataset is None:
             return []
-        
+
         idxRange = index_range(page, page_size)
         data = self.__dataset[idxRange[0]:idxRange[1]]
         return data
