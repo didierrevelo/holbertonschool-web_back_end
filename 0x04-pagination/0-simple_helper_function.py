@@ -10,4 +10,5 @@ from typing import Tuple
 
 
 def index_range(page, page_size) -> Tuple[int, int]:
+    """0. Simple helper function"""
     return ((page - 1) * page_size, page * page_size)
