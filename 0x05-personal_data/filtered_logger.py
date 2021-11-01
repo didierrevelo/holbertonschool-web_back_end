@@ -96,7 +96,7 @@ def main():
     cursor.execute("SELECT * FROM users;")
     field_names = [i[0] for i in cursor.description]
 
-    logger = get_log()
+    logger = get_logger()
 
     for row in cursor:
         str_row = ''.join(f'{f}={str(r)}; ' for r, f in zip(row, field_names))
