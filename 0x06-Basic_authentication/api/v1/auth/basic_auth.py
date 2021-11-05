@@ -15,17 +15,6 @@ create an instance of BasicAuth
 and assign it to the variable auth
 Otherwise, keep the previous mechanism
 with auth an instance of Auth.
-
-Now, you have all pieces for having a complete Basic authentication.
-
-Add the method def current_user(self, request=None) -> TypeVar('User') in the class BasicAuth that overloads Auth and retrieves the User instance for a request:
-
-You must use authorization_header
-You must use extract_base64_authorization_header
-You must use decode_base64_authorization_header
-You must use extract_user_credentials
-You must use user_object_from_credentials
-With this update, now your API is fully protected by a Basic Authentication. Enjoy!
 """
 from api.v1.auth.auth import Auth
 import base64
@@ -109,7 +98,7 @@ class BasicAuth(Auth):
             return None
 
         decoded = self.decode_base64_authorization_header(coded)
-        
+
         if not decoded:
             return None
 
