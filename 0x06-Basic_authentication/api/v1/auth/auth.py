@@ -31,7 +31,30 @@ class Auth:
 
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """require_auth method"""
-        return False
+        if path is None or excluded_paths is None or excluded_paths == []:
+            return True
+        
+        len_path = len(path)
+        if len_path == 0:
+            return True
+
+        slashed_path = True if path[len_path - 1] == '/' else False
+        
+        temp_path = path
+        if not slashed_path:
+            temp_path += '/'
+
+        for count in excluded_paths:
+            len_count = len(count)
+            if len_count == 0:
+                continue
+            if count[len_count - 1] != '*':    
+                if temp_path == count:    
+                    return False    
+            else:
+                if count[:-1] == path[:len_count - 1]:    
+                    return False  
+        return True
 
     def authorization_header(self, request=None) -> str:
         """authorization_header method"""
