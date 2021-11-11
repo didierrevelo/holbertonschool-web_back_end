@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Create a class SessionAuth
 that inherits from Auth. For
 the moment this class will be
@@ -15,12 +15,4 @@ from api.v1.auth.auth import Auth
 class SessionAuth(Auth):
     """SessionAuth class
     """
-    def __init__(self):
-        """Initialize SessionAuth class
-        """
-        super(SessionAuth, self).__init__()
-
-    def validate(self, request):
-        """Validate method
-        """
-        return True
+    pass
