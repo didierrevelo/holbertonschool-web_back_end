@@ -15,4 +15,12 @@ from api.v1.auth.auth import Auth
 class SessionAuth(Auth):
     """SessionAuth class
     """
-    pass
+    def __init__(self):
+        """Initialize SessionAuth class
+        """
+        super(SessionAuth, self).__init__()
+
+    def validate(self, request):
+        """Validate method
+        """
+        return True
