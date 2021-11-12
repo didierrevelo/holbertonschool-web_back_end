@@ -109,3 +109,23 @@ class BasicAuth(Auth):
 
         user = self.user_object_from_credentials(user_email, user_pwd)
         return user
+
+    def destroy_session(self, request=None):
+        """ that deletes the user session / logout:"""
+        if request is None:
+            return False
+
+        id_session = self.session_cookie(request)
+        if id_session is None:
+            return False
+
+        id_user = self.user_id_for_session_id(id_session)
+        if not id_user:
+            return False
+
+        try:
+            del self.user_id_by_session_id[id_session]
+        except Exception:
+            pass
+
+        return True
