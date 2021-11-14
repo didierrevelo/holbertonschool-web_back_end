@@ -40,4 +40,3 @@ class DB:
         self._session.commit()
 
         return user
-
