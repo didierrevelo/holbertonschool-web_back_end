@@ -12,6 +12,6 @@ import bcrypt
 
 def _hash_password(password: str) -> str:
     """
-    Returns the hash of the password (bytes).
+    Returns the hash of the password (str).
     """
     return bcrypt.hashpw(password.encode(), bcrypt.gensalt())
