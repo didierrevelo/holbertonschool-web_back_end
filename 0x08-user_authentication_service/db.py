@@ -46,13 +46,13 @@ class DB:
     def find_user_by(self, **kwargs) -> User:
         """Find user by email
         """
-        try:
-            return self._session.query(User).filter_by(**kwargs).first()
-        except NoResultFound:
-            raise NoResultFound
-        except InvalidRequestError:
+        if kwargs is None:
             raise InvalidRequestError
-
+        user = self._session.query(User).filter_by(**kwargs).first()
+        if user is None:
+            raise NoResultFound
+        return user
+    
     def update_user(self, user_id: int, **kwargs) -> None:
         """Update user by id
         """
