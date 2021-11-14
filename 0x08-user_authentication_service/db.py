@@ -47,7 +47,7 @@ class DB:
         """Find user by email
         """
         try:
-            return self._session.query(User).filter_by(**kwargs).first()
+            return self._session.query(User).filter_by(**kwargs).one()
         except NoResultFound:
             raise NoResultFound("No user found")
         except InvalidRequestError:
@@ -59,7 +59,7 @@ class DB:
         user = self.find_user_by(id=user_id)
         column = User.__table__.columns.keys()
         for key, value in kwargs.items():
-                setattr(user, key, value)
+            setattr(user, key, value)
 
         for key in kwargs.keys():
             if key not in column:
