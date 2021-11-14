@@ -57,9 +57,11 @@ class DB:
         """Update user by id
         """
         user = self.find_user_by(id=user_id)
+        column = User.__table__.columns.keys()
         for key, value in kwargs.items():
             if hasattr(user, key):
                 setattr(user, key, value)
             else:
-                raise ValueError("Invalid attribute")
+                if key not in column:
+                    raise ValueError("Invalid attribute")
         self._session.commit()
