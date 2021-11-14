@@ -54,14 +54,18 @@ class DB:
             raise InvalidRequestError("Invalid request")
 
     def update_user(self, user_id: int, **kwargs) -> None:
-        """Update user by id
+        """ Update users attributes
+        Returns: None
         """
         user = self.find_user_by(id=user_id)
-        column = User.__table__.columns.keys()
+
+        column_names = User.__table__.columns.keys()
+        for key in kwargs.keys():
+            if key not in column_names:
+                raise ValueError
+
         for key, value in kwargs.items():
             setattr(user, key, value)
 
-        for key in kwargs.keys():
-            if key not in column:
-                raise ValueError
         self._session.commit()
+    
