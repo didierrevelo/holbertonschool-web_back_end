@@ -59,9 +59,9 @@ class DB:
         user = self.find_user_by(id=user_id)
         column = User.__table__.columns.keys()
         for key, value in kwargs.items():
-            if hasattr(user, key):
                 setattr(user, key, value)
-            else:
-                if key not in column:
-                    raise ValueError("Invalid attribute")
+
+        for key in kwargs.keys():
+            if key not in column:
+                raise ValueError("Invalid attribute")
         self._session.commit()
