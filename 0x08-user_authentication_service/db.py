@@ -62,4 +62,4 @@ class DB:
                 setattr(user, key, value)
             else:
                 raise ValueError("Invalid attribute")
-        self._session.commit()    
+        self._session.commit()
