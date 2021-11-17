@@ -46,16 +46,18 @@ def login() -> str:
         password = request.form.get("password")
     except KeyError:
         abort(400)
-    try:
-        AUTH.valid_login(email, password)
-    except ValueError:
+
+    if not AUTH.valid_login(email, password):
         abort(401)
 
     session_id = AUTH.create_session(email)
-    message = {"email": email, "message": "logged in"}
-    json_message = jsonify(message)
-    json_message.set_cookie("session_id", session_id)
-    return json_message
+
+    msg = {"email": email, "message": "logged in"}
+    response = jsonify(msg)
+
+    response.set_cookie("session_id", session_id)
+
+    return response
 
 
 if __name__ == "__main__":
