@@ -59,6 +59,31 @@ def login() -> str:
 
     return response
 
+"""In this task, you will implement a logout function to respond to the DELETE /sessions route.
+
+The request is expected to contain the session ID as a cookie with key "session_id".
+
+Find the user with the requested session ID. If the user exists destroy the session and redirect the user to GET /. If the user does not exist, respond with a 403 HTTP status."""
+
+def logout() -> str:
+    """Create a Flask app that has a single
+    DELETE route ("/sessions") and use flask.jsonify
+    to return a JSON"""
+    try:
+        session_id = request.cookies.get("session_id")
+    except KeyError:
+        abort(400)
+
+    if not AUTH.valid_session(session_id):
+        abort(403)
+
+    AUTH.destroy_session(session_id)
+
+    response = redirect("/")
+    response.set_cookie("session_id", "", expires=0)
+
+    return response
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
