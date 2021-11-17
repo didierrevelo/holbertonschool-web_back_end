@@ -120,7 +120,7 @@ def reset_password() -> str:
     return jsonify(msg), 200
 
 
-@app.route('/reset_password', methods=['PUT'])
+@app.route('/reset_password', methods=['POST'])
 def update_password() -> str:
     """Create a Flask app that has a single
     POST route ("/update_password") and use flask.jsonify
