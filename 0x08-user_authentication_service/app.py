@@ -128,16 +128,17 @@ def update_password() -> str:
     try:
         email = request.form['email']
         reset_token = request.form['reset_token']
-        password = request.form['password']
+        new_password = request.form['new_password']
     except KeyError:
         abort(400)
 
     try:
-        AUTH.update_password(reset_token, password)
+        AUTH.update_password(reset_token, new_password)
     except ValueError:
         abort(403)
 
-    return jsonify({"email": email, "message": "password updated"}), 200
+    msg = {"email": email, "message": "Password updated"}
+    return jsonify(msg), 200
 
 
 if __name__ == "__main__":
