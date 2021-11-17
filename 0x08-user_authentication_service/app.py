@@ -119,6 +119,31 @@ def reset_password() -> str:
 
     return jsonify(msg), 200
 
+"""In this task, you will implement the Auth.update_password method. It takes reset_token string argument and a password string argument and returns None.
+
+Use the reset_token to find the corresponding user. If it does not exist, raise a ValueError exception.
+
+Otherwise, hash the password and update the user’s hashed_password field with the new hashed password and the reset_token field to None."""
+
+@app.route('/update_password', methods=['POST'])
+def update_password() -> str:
+    """Create a Flask app that has a single
+    POST route ("/update_password") and use flask.jsonify
+    to return a JSON"""
+    try:
+        email = request.form['email']
+        reset_token = request.form['reset_token']
+        password = request.form['password']
+    except KeyError:
+        abort(400)
+
+    try:
+        AUTH.update_password(reset_token, password)
+    except ValueError:
+        abort(403)
+
+    return jsonify({"email": email, "message": "password updated"}), 200
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
