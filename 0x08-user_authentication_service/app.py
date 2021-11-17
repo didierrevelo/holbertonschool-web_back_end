@@ -53,7 +53,6 @@ def login() -> str:
 
     session_id = AUTH.create_session(email)
     message = {"email": email, "message": "logged in"}
-    
     json_message = jsonify(message)
     json_message.set_cookie("session_id", session_id)
     return json_message
