@@ -94,3 +94,14 @@ class Auth:
         Destroys the session of the user.
         """
         self._db.update_user(user_id, session_id=None)
+
+    def logout(self, session_id: str) -> None:
+        """
+        Logs out the user.
+        """
+        try:
+            user = self._db.find_user_by(session_id=session_id)
+        except NoResultFound:
+            return None
+
+        self._db.update_user(user.id, session_id=None)
