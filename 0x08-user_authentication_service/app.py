@@ -70,11 +70,11 @@ def logout() -> str:
     DELETE route ("/sessions") and use flask.jsonify
     to return a JSON"""
     try:
-        session_id = request.cookies.get("session_id")
+        session_id = request.cookies.get("session_id" , None)
     except KeyError:
-        abort(400)
+        abort(403)
 
-    if not AUTH.valid_session(session_id):
+    if not AUTH.get_user_from_session_id(session_id):
         abort(403)
 
     AUTH.destroy_session(session_id)
