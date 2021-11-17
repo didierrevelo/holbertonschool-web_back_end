@@ -106,16 +106,18 @@ def reset_password() -> str:
     POST route ("/reset_password") and use flask.jsonify
     to return a JSON"""
     try:
-        email = request.form.get("email")
+        email = request.form['email']
     except KeyError:
         abort(403)
 
-    if not AUTH.get_reset_password_token(email):
+    try:
+        reset_token = AUTH.get_reset_password_token(email)
+    except ValueError:
         abort(403)
 
-    reset_token = AUTH.get_reset_password_token(email)
+    msg = {"email": email, "reset_token": reset_token}
 
-    return jsonify({"email": email, "reset_token": reset_token}), 200
+    return jsonify(msg), 200
 
 
 if __name__ == "__main__":
