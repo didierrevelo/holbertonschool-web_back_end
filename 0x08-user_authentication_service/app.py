@@ -119,11 +119,6 @@ def reset_password() -> str:
 
     return jsonify(msg), 200
 
-"""In this task, you will implement the Auth.update_password method. It takes reset_token string argument and a password string argument and returns None.
-
-Use the reset_token to find the corresponding user. If it does not exist, raise a ValueError exception.
-
-Otherwise, hash the password and update the user’s hashed_password field with the new hashed password and the reset_token field to None."""
 
 @app.route('/update_password', methods=['POST'])
 def update_password() -> str:
