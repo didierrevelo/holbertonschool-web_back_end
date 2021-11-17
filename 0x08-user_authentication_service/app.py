@@ -75,7 +75,7 @@ def logout() -> str:
     AUTH.destroy_session(session_id)
 
     response = redirect("/")
-    response.set_cookie("session_id", "", expires=0)
+    # response.set_cookie("session_id", "", expires=0)
 
     return response
 
