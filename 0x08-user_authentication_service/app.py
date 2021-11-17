@@ -20,6 +20,9 @@ payload of the form:"""
 
 @app.route("/users", methods=["POST"])
 def register_user() -> str:
+    """Create a Flask app that has a single
+    POST route ("/users") and use flask.jsonify
+    to return a JSON"""
     try:
         email = request.form.get("email")
         password = request.form.get("password")
