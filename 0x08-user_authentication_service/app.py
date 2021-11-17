@@ -64,20 +64,19 @@ def logout() -> str:
     """Create a Flask app that has a single
     DELETE route ("/sessions") and use flask.jsonify
     to return a JSON"""
-    try:
-        session_id = request.cookies.get("session_id", None)
-    except KeyError:
+    session_id = request.cookies.get("session_id", None)
+
+    if session_id is None:
         abort(403)
 
-    if not AUTH.get_user_from_session_id(session_id):
+    user = AUTH.get_user_from_session_id(session_id)
+
+    if user is None:
         abort(403)
 
-    AUTH.destroy_session(session_id)
+    AUTH.destroy_session(user.id)
 
-    response = redirect("/")
-    # response.set_cookie("session_id", "", expires=0)
-
-    return response
+    return redirect('/')
 
 
 if __name__ == "__main__":
