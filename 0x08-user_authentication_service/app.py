@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """app.py file"""
 
-from flask import Flask, jsonify, request, abort
+from flask import Flask, jsonify, request, abort, request, redirect
 from auth import Auth
 
 
@@ -34,6 +34,29 @@ def register_user() -> str:
         return jsonify({"email": email, "message": "user created"})
 
     return jsonify({"email": "<registered email>", "message": "user created"})
+
+
+@app.route("/sessions", methods=["POST"])
+def login() -> str:
+    """Create a Flask app that has a single
+    POST route ("/sessions") and use flask.jsonify
+    to return a JSON"""
+    try:
+        email = request.form.get("email")
+        password = request.form.get("password")
+    except KeyError:
+        abort(400)
+    try:
+        AUTH.valid_login(email, password)
+    except ValueError:
+        abort(401)
+
+    session_id = AUTH.create_session(email)
+    message = {"email": email, "message": "logged in"}
+    
+    json_message = jsonify(message)
+    json_message.set_cookie("session_id", session_id)
+    return json_message
 
 
 if __name__ == "__main__":
