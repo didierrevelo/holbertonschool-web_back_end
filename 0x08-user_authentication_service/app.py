@@ -120,11 +120,15 @@ def reset_password() -> str:
     return jsonify(msg), 200
 
 
-@app.route('/reset_password', methods=['POST'])
+@app.route('/reset_password', methods=['PUT'])
 def update_password() -> str:
-    """Create a Flask app that has a single
-    POST route ("/update_password") and use flask.jsonify
-    to return a JSON"""
+    """ PUT /reset_password
+    Updates password with reset token
+    Return:
+        - 400 if bad request
+        - 403 if not valid reset token
+        - 200 and JSON Payload if valid
+    """
     try:
         email = request.form['email']
         reset_token = request.form['reset_token']
@@ -135,7 +139,7 @@ def update_password() -> str:
     try:
         AUTH.update_password(reset_token, new_password)
     except ValueError:
-        raise (403)
+        abort(403)
 
     msg = {"email": email, "message": "Password updated"}
     return jsonify(msg), 200
