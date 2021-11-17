@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""app.py file"""
+"""API Routes for Authentication Service"""
 
 from flask import Flask, jsonify, request, abort, request, redirect
 from auth import Auth
