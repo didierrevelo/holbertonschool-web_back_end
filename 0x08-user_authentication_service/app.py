@@ -100,5 +100,23 @@ def profile() -> str:
     return jsonify(msg), 200
 
 
+@app.route('/reset_password', methods=['POST'])
+def reset_password() -> str:
+    """Create a Flask app that has a single
+    POST route ("/reset_password") and use flask.jsonify
+    to return a JSON"""
+    try:
+        email = request.form.get("email")
+    except KeyError:
+        abort(400)
+
+    if not AUTH.valid_email(email):
+        abort(403)
+
+    reset_token = AUTH.get_reset_password_token(email)
+
+    return jsonify({"reset_token": reset_token, "email": email}), 200
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
