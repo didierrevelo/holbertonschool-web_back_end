@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """test client"""
 from client import GithubOrgClient
-from parameterized import parameterized
+from parameterized import parameterized, parameterized_class
 from unittest import TestCase
-from unittest.mock import patch, PropertyMock
+from unittest.mock import patch, PropertyMock, Mock
+from fixtures import TEST_PAYLOAD
 
 
 class TestGithubOrgClient(TestCase):
@@ -45,3 +46,12 @@ class TestGithubOrgClient(TestCase):
 
             mock_public.assert_called_once()
             mock_j.assert_called_once()
+
+    @parameterized.expand([
+        ({"license": {"key": "my_license"}}, "my_license", True),
+        ({"license": {"key": "other_license"}}, "my_license", False)
+    ])
+    def test_has_license(self, repo, license_key, expected):
+        """ unit-test for GithubOrgClient.has_license """
+        result = GithubOrgClient.has_license(repo, license_key)
+        self.assertEqual(result, expected)
