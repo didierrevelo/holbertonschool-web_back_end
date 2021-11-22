@@ -3,7 +3,7 @@
 from client import GithubOrgClient
 from parameterized import parameterized
 from unittest import TestCase
-from unittest.mock import patch, PropertyMock, MagicMock
+from unittest.mock import patch, PropertyMock
 
 
 class TestGithubOrgClient(TestCase):
@@ -28,10 +28,10 @@ class TestGithubOrgClient(TestCase):
                              'https://api.github.com/orgs/google/repos')
 
     @patch('client.get_json')
-    def test_public_repos(self, mock):
+    def test_public_repos(self, mock_j):
         """Test that GithubOrgClient.public_repos returns the correct value."""
         json_payload = [{"name": "Google"}, {"name": "Twitter"}]
-        mock.return_value = json_payload
+        mock_j.return_value = json_payload
 
         with patch('client.GithubOrgClient._public_repos_url',
                    new_callable=PropertyMock) as mock_public:
@@ -44,4 +44,4 @@ class TestGithubOrgClient(TestCase):
             self.assertEqual(result, check)
 
             mock_public.assert_called_once()
-            mock.assert_called_once()
+            mock_j.assert_called_once()
