@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """test with the unittest"""
-from utils import (access_nested_map, get_json)
+from utils import (access_nested_map, get_json, memoize)
 from unittest import TestCase, mock
 from unittest.mock import patch
 from parameterized import parameterized
@@ -42,3 +42,39 @@ class TestGetJson(TestCase):
         self.assertEqual(get_json(test_url), test_payload)
         mock.assert_called_once()
         config.stop()
+
+"""Read about memoization and familiarize yourself with the utils.memoize decorator.
+
+Implement the TestMemoize(unittest.TestCase) class with a test_memoize method.
+
+Inside test_memoize, define following class
+
+class TestClass:
+
+    def a_method(self):
+        return 42
+
+    @memoize
+    def a_property(self):
+        return self.a_method()
+Use unittest.mock.patch to mock a_method. Test that when calling a_property twice, the correct result is returned but a_method is only called once using assert_called_once."""
+class TestMemoize(TestCase):
+    """class that make test memoize"""
+    def test_memoize(self):
+        """test that returns what it is supposed to"""
+        class TestClass:
+            """class that make test memoize"""
+            def a_method(self):
+                """test that returns what it is supposed to"""
+                return 42
+
+            @memoize
+            def a_property(self):
+                """test that returns what it is supposed to"""
+                return self.a_method()
+
+        with patch.object(TestClass, 'a_method') as mock:
+            test_class = TestClass()
+            test_class.a_property()
+            test_class.a_property()
+            mock.assert_called_once()
