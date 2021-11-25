@@ -2,7 +2,7 @@
 """First you will setup a basic
 Flask app in 0-app.py. Create a single / route"""
 from flask import Flask, render_template
-from flask_babel import Babel, localeselector
+from flask_babel import Babel
 from flask import request
 
 
@@ -23,7 +23,7 @@ app.config.from_object(Config)
 @app.route('/', methods=['GET'], strict_slashes=False)
 def route_index():
     """Renders a Basic Template"""
-    return render_template('0-index.html')
+    return render_template('2-index.html')
 
 
 @babel.localeselector
