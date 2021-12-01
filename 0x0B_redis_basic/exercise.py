@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """ Writing strings to Redis"""
 from functools import wraps
-from redis import Redis
+import redis
 from typing import Union, Optional, Callable
-from uuid import uuid4
+from uuid import uuid4, UUID
 
 
 def count_calls(method: Callable) -> Callable:
@@ -40,7 +40,7 @@ def call_history(method: Callable) -> Callable:
 
 def replay(fn: Callable):
     """Display the history of calls of a particular function"""
-    r = Redis()
+    r = redis.Redis()
     f_name = fn.__qualname__
     n_calls = r.get(f_name)
     try:
@@ -69,7 +69,7 @@ class Cache:
     """ Class to cache data to redis"""
     def __init__(self):
         """constructor method"""
-        self._redis = Redis()
+        self._redis = redis.Redis()
         self._redis.flushdb()
 
     @call_history
