@@ -10,13 +10,6 @@ if __name__ == "__main__":
     client = MongoClient('mongodb://127.0.0.1:27017')
     nginx_collection = client.logs.nginx
 
-    # get_documents = nginx_collection.aggregate(
-    #     [
-    #         {"$match": {"method": "GET"}},
-    #         {"$count": "gets"}
-    #     ]
-    # )
-
     n_logs = nginx_collection.count_documents({})
     print(f'{n_logs} logs')
 
