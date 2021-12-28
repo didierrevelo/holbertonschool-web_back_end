@@ -17,15 +17,14 @@ const app = http.createServer(async (req, res) => {
       const list = await countStudents(data);
       res.end(`${list.join('\n')}`);
     } catch (error) {
-      res.write(error);
-      res.end();
+      res.end(error.message);
     }
   }
   res.statusCode = 404;
   res.end();
 });
 app.listen(port, hostname, () => {
-  // console.log(`Server running at http://${hostname}:${port}/`);
+  console.log(`Server running at http://${hostname}:${port}/`);
 });
 
 module.exports = app;
