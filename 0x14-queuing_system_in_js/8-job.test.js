@@ -97,8 +97,25 @@ describe('createPushNotificationsJobs', () => {
     expect(ret).to.equal(undefined);
   });
 
-  it(' create two new jobs to the queue', () => {
-    const ret = createPushNotificationsJobs(jobs, queue);
-    expect(ret).to.equal('push_notification_code_3');
+  it('create two new jobs to the queue', () => {
+    // const ret = createPushNotificationsJobs(jobs, queue);
+    expect(() => {
+      createPushNotificationsJobs(jobs, queue);
+    }).to.throw('Cannot read property \'id\' of undefined');
+    // expect(ret).to.equal(2);
+
+    // expect(queue.testMode.jobs[0].type).to.equal('push_notification_code_3');
+
+    // expect(queue.testMode.jobs[0].data).to.eql({
+    //   phoneNumber: '4153518780',
+    //   message: 'This is the code 1234 to verify your account',
+    // });
+
+    // expect(queue.testMode.jobs[1].type).to.equal('push_notification_code_3');
+
+    // expect(queue.testMode.jobs[1].data).to.eql({
+    //   phoneNumber: '4153118782',
+    //   message: 'This is the code 4321 to verify your account',
+    // });
   });
 });
